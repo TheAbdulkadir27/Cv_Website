@@ -362,3 +362,4 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Cv_Website.sln
+/Core_Proje1/wwwroot/skydash
