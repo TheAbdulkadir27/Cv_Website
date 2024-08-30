@@ -1,0 +1,102 @@
+﻿@model List<EntityLayer.Concrete.Experiance>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+<div class="col-md-6">
+    <div class="p-2">
+        <button type="button" id="getlistall" class="btn btn-outline-primary">Verileri Getir</button>
+        <button type="button" id="btnadd" class="btn btn-outline-info">Ekle</button>
+        <button type="button" id="btnid" class="btn btn-outline-success">ID ile Getir</button>
+    </div>
+</div>
+<h4 class="text-center">Deneyim Listesi</h4>
+
+<div class="col-md-12">
+    <h5>Ekleme Paneli</h5>
+    <input type="text" class="form-control" id="inpname" placeholder="Ad" />
+    <br />
+    <input type="date" class="form-control" id="inpdate" placeholder="Tarih" />
+    <br />
+</div>
+
+<br />
+
+<div class="col-md-12">
+    <h5>Id ye Göre Getirme Paneli</h5>
+    <input type="text" class="form-control" id="inpid" placeholder="ID Giriniz..." />
+</div>
+
+
+<div class="p-2" id="listExperiance">
+</div>
+
+<div class="p-2" id="listByIdExperiance">
+</div>
+
+<script src="~/argon-dashboard-master/assets/vendor/jquery/dist/jquery.min.js"></script>
+@section scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $("#getlistall").click(function () {
+                $.ajax(
+                    {
+                        contentType: "application/json",
+                        dataType: "json",
+                        type: "Get",
+                        url: "/Experiance2/ListExperiance/",
+                        success: function (funk) {
+                            let values = jQuery.parseJSON(funk);
+                            console.log(values);
+
+                            let htmlst = "<table class = "table table-bordered"> <tr><th> ID</th><th>Başlık</th><th>Tarih</th></tr>";
+                            $.each(values, (Index, value) => {
+                                htmlst += `<tr><td>${value.ExperianceID}</td><td>${value.Name}</td><td>${value.Date}</td></tr>`
+                            });
+                            htmlst += "</table>";
+                            $("#listExperiance").html(htmlst);
+                        }
+                    });
+            });
+            $("#btnadd").click(function () {
+                let values = {
+                    Name: $("#inpname").val(),
+                    Date: $("#inpdate").val()
+                }
+                $.ajax(
+                    {
+                        type: "Post",
+                        url: "/Experiance2/AddExperiance/",
+                        data: values,
+                        success: function (funk1) {
+                            let result = JQuery.parseJSON(funk1);
+                            alert(result.Name : " Başarılı Bir şekilde Eklendi");
+                        }
+                    });
+            });
+            $("#btnid").click(x => {
+                let id = $("#inpid").val();
+                $.ajax({
+                    contentType: "application/json",
+                    dataType: "json",
+                    type: "Get",
+                    url: "/Experiance2/GetById/",
+                    data: { ExperianceID: id },
+                    success: function (funk2) {
+                        let result = JQuery.parseJSON(funk2)
+                        let htmlstr = `<table class = "table table-hover"><tr> <th>Deneyim ID
+                                            </th> <td>${result.ExperianceID}</td></tr><tr>
+                                            <th>Deneyim Başlığı</th> <td>${result.Name}</td>
+                                            </tr></table>`
+
+                        $("#listByIdExperiance").html(htmlstr);
+
+                    }
+                });
+            });
+        });
+
+    </script>
+}
+@* <script src="~/lib/jquery/dist/jquery.js"></script> *@

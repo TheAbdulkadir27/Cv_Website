@@ -1,0 +1,30 @@
+﻿@model EntityLayer.Concrete.Contact
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+<div class="card-header border-0">
+    <h3 class="mb-0">Alt İletişim Bilgileri Düzenleme Sayfası </h3>
+    <form class="form-group" method="post">
+        @Html.HiddenFor(x=>x.ContactID)
+        <div class="form-group">
+            @Html.Label("Başlık")
+            @Html.TextBoxFor(x=>x.Title, new{@class = "form-control"})
+        </div>
+        <div class="form-group">
+            @Html.Label("Telefon")
+            @Html.TextBoxFor(x=>x.Phone, new{@class = "form-control"})
+        </div>
+        <div class="form-group">
+            @Html.Label("Mail")
+            @Html.TextBoxFor(x=>x.Mail, new{@class = "form-control"})
+        </div>
+        <div class="form-group">
+            @Html.Label("Açıklama")
+            @Html.TextAreaFor(x=>x.Description,3,2, new{@class = "form-control"})
+        </div>
+        <button type="submit" class="btn btn-primary">Güncelle</button>
+        <button class="btn btn-dark"> İptal </button>
+    </form>
+</div>
+

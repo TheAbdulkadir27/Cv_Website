@@ -1,0 +1,27 @@
+﻿@model EntityLayer.Concrete.SocialMedia
+@{
+    ViewData["Title"] = "DetailSocialMedia";
+    Layout = "~/Views/Shared/_NewAdminLayout.cshtml";
+}
+<div class="card-header border-0">
+    <h3 class="mb-0">Alt İletişim Bilgileri Düzenleme Sayfası </h3>
+    <form class="form-group" method="post">
+        @Html.HiddenFor(x=>x.SocialMediaID)
+        <div class="form-group">
+            @Html.Label("Sosyal Medya ismi")
+            @Html.TextBoxFor(x=>x.Name, new{@class = "form-control"})
+        </div>
+        <div class="form-group">
+            @Html.Label("İcon")
+            @Html.TextBoxFor(x=>x.icon, new{@class = "form-control"})
+        </div>
+        <div class="form-group">
+            @Html.Label("Url")
+            @Html.TextBoxFor(x=>x.Url, new{@class = "form-control"})
+        </div>
+        <button type="submit" class="btn btn-primary">Ekle</button>
+        <button class="btn btn-dark"> İptal </button>
+    </form>
+</div>
+
+
